@@ -10,6 +10,7 @@ from tqdm import tqdm
 C = bpy.context
 S = C.scene
 
+rounds = 3
 outfileName = 'results.txt'
 cyclesPrefs = C.preferences.addons['cycles'].preferences
 
@@ -113,7 +114,10 @@ def main(f):
 
 	results = []
 	for params in tqdm(paramGrid):
-		duration = render(params)
+		# average over multiple rounds
+		duration = sum(
+			render(params) for _ in range(rounds)
+		) / rounds
 		results.append({ **params, 'renderTime': duration })
 
 	print()
