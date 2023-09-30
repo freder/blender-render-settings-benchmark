@@ -89,13 +89,12 @@ def main(f):
 
 	paramGrid = ParameterGrid([
 		{
-			'devType': devTypesSupported,
+			'devType': [devType],
 			'featureSet': [
 				'SUPPORTED',
 				'EXPERIMENTAL'
 			],
 			'tileSize': [
-				# 32,
 				64,
 				128,
 				256,
@@ -104,12 +103,12 @@ def main(f):
 				2048,
 				4096
 			],
-			# 'persistentData': [True, False],
-			'useOSL': [
-				True,
-				False
-			],
+			# OSL only works with CPU and OPTIX
+			# although this might change in the future: https://devtalk.blender.org/t/osl-on-gpu/25751
+			'useOSL': [True, False] if devType in ['NONE', 'OPTIX'] else [False],
+			# NOTE: not sure what effect enabling OSL has when OSL isn't actually used
 		}
+		for devType in devTypesSupported
 	])
 
 	results = []
