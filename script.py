@@ -77,7 +77,6 @@ def render(params):
 	# use all devices (gpu and cpu)
 	for dev in cyclesPrefs.devices:
 		dev['use'] = True
-		# print(f"- {dev['name']}")
 
 	startTime = time.time()
 	bpy.ops.render.render(use_viewport=True)

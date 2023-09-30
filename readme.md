@@ -15,96 +15,138 @@ blender -b -y -noaudio \
 ```
 OPTIX not supported
 CUDA not supported
-
-2.886s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': True}
-3.007s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': True}
-3.348s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': False}
-3.361s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': False}
-3.363s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': False}
-3.464s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': False}
-3.581s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': True}
-3.655s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': True}
-3.688s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': True}
-3.714s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': True}
-4.100s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': False}
-4.173s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': True}
-4.237s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': False}
-5.217s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': True}
-5.440s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': False}
-5.781s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': False}
-6.851s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': False}
-6.888s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': True}
-6.909s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': True}
-6.931s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': False}
-8.188s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': True}
-8.390s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': False}
-8.393s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': True}
-8.613s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': False}
-11.618s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': False}
-11.806s _ {'devType': 'METAL', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': True}
-12.257s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': False}
-12.829s _ {'devType': 'METAL', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': True}
+3.749s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": false, "useTiling": true}
+3.822s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": false, "useTiling": true}
+3.958s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": false}
+3.974s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": true}
+4.349s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": false, "useTiling": true}
+4.554s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": false, "useTiling": true}
+4.588s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": false}
+4.715s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": false, "useTiling": true}
+4.811s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": false, "useTiling": true}
+5.444s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": false}
+5.446s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": false}
+5.456s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": false, "useTiling": true}
+5.458s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": false, "useTiling": true}
+5.477s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": false, "useTiling": true}
+5.495s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": false, "useTiling": true}
+5.569s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": true}
+5.573s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": true}
+5.593s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": false, "useTiling": true}
+5.653s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": false, "useTiling": true}
+5.742s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": false, "useTiling": true}
+5.770s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": false, "useTiling": true}
+5.903s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": true}
+6.059s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": true, "useTiling": true}
+6.071s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": true, "useTiling": true}
+6.077s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": false}
+6.084s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": true, "useTiling": true}
+6.109s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": true, "useTiling": true}
+6.124s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": true, "useTiling": true}
+6.151s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": true, "useTiling": true}
+6.181s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": true}
+6.253s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": true}
+6.324s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": false}
+6.396s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": false, "useTiling": true}
+6.419s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": true, "useTiling": true}
+6.423s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": false, "useTiling": true}
+6.517s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": true, "useTiling": true}
+6.693s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": false, "useTiling": true}
+7.252s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": false, "useTiling": true}
+7.253s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": true, "useTiling": true}
+7.314s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": true, "useTiling": true}
+7.417s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": false, "useTiling": true}
+7.448s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": false, "useTiling": true}
+8.284s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": false, "useTiling": true}
+8.478s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": true, "useTiling": true}
+8.496s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": false, "useTiling": true}
+8.508s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": true, "useTiling": true}
+12.051s _ {"devType": "METAL", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": false, "useTiling": true}
+12.342s _ {"devType": "METAL", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": false, "useTiling": true}
 ```
 
 ### nvidia geforce rtx 2070
 
 ```
 METAL not supported
-
-1.331s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': true}
-1.360s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': true}
-1.404s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': true}
-1.420s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': true}
-1.443s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': false}
-1.445s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': false}
-1.507s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': false}
-1.547s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': true}
-1.574s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': false}
-1.665s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': false}
-1.671s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 4096, 'useOSL': false}
-1.673s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': false}
-1.686s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': false}
-1.697s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 2048, 'useOSL': true}
-1.719s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': false}
-1.801s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 2048, 'useOSL': true}
-1.805s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': true}
-1.818s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': true}
-1.837s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 4096, 'useOSL': true}
-1.838s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': true}
-1.841s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': true}
-1.852s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': false}
-1.912s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 1024, 'useOSL': false}
-1.947s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 1024, 'useOSL': false}
-1.972s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': false}
-1.972s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': false}
-2.008s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': true}
-2.024s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': true}
-2.089s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': true}
-2.089s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': true}
-2.090s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 512, 'useOSL': false}
-2.187s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 512, 'useOSL': false}
-2.286s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': true}
-2.310s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': true}
-2.485s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': false}
-2.512s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': false}
-2.788s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': true}
-2.791s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': true}
-2.814s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': false}
-2.815s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 256, 'useOSL': true}
-2.850s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': true}
-2.891s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 256, 'useOSL': false}
-3.042s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': false}
-3.099s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': true}
-3.146s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': false}
-3.184s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 128, 'useOSL': false}
-3.217s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': false}
-3.242s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 128, 'useOSL': true}
-3.538s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': true}
-3.659s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': false}
-3.688s _ {'devType': 'CUDA', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': false}
-3.736s _ {'devType': 'CUDA', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': true}
-3.988s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': true}
-4.053s _ {'devType': 'OPTIX', 'featureSet': 'EXPERIMENTAL', 'tileSize': 64, 'useOSL': false}
-4.099s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': true}
-4.212s _ {'devType': 'OPTIX', 'featureSet': 'SUPPORTED', 'tileSize': 64, 'useOSL': false}
+1.365s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": false, "useTiling": true}
+1.409s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": false, "useTiling": true}
+1.419s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": false, "useTiling": true}
+1.460s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": false}
+1.487s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": true, "useTiling": true}
+1.503s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": true, "useTiling": true}
+1.511s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": false}
+1.546s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": false}
+1.572s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": true, "useTiling": true}
+1.573s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": false, "useTiling": true}
+1.585s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": true, "useTiling": true}
+1.594s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": false}
+1.601s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": false, "useTiling": true}
+1.619s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": false, "useTiling": true}
+1.645s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": false, "useTiling": true}
+1.667s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": false, "useTiling": true}
+1.671s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": false}
+1.736s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": false}
+1.798s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": true}
+1.809s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": true}
+1.909s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": true}
+1.999s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": false, "useTiling": true}
+2.002s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": true}
+2.038s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": false, "useTiling": true}
+2.046s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": true, "useTiling": true}
+2.052s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": false, "useTiling": true}
+2.083s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": true, "useTiling": true}
+2.089s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": true}
+2.132s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": false, "useTiling": true}
+2.184s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": true}
+2.307s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": false, "useTiling": true}
+2.338s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": false, "useTiling": true}
+2.628s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": true, "useTiling": true}
+2.674s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": true, "useTiling": true}
+2.767s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": false, "useTiling": true}
+2.781s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": false, "useTiling": true}
+2.909s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": false, "useTiling": true}
+2.920s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": false, "useTiling": true}
+3.099s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": true, "useTiling": true}
+3.165s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": false, "useTiling": true}
+3.188s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": true, "useTiling": true}
+3.193s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": false, "useTiling": true}
+3.689s _ {"devType": "CUDA", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": false, "useTiling": true}
+3.701s _ {"devType": "CUDA", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": false, "useTiling": true}
+4.115s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": true, "useTiling": true}
+4.164s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": false, "useTiling": true}
+4.200s _ {"devType": "OPTIX", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": false, "useTiling": true}
+4.224s _ {"devType": "OPTIX", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": true, "useTiling": true}
+9.113s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": true, "useTiling": true}
+9.125s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": true, "useTiling": true}
+9.128s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 512, "useOSL": false, "useTiling": true}
+9.137s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 512, "useOSL": false, "useTiling": true}
+9.335s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": true, "useTiling": true}
+9.348s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 256, "useOSL": false, "useTiling": true}
+9.369s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": true, "useTiling": true}
+9.369s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 256, "useOSL": false, "useTiling": true}
+9.396s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": false}
+9.408s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": false}
+9.423s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": false, "useTiling": true}
+9.423s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": true, "useTiling": true}
+9.436s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": false}
+9.438s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": false, "useTiling": true}
+9.439s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": false}
+9.444s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": true, "useTiling": true}
+9.447s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 4096, "useOSL": true, "useTiling": true}
+9.449s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 2048, "useOSL": true, "useTiling": true}
+9.454s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 4096, "useOSL": false, "useTiling": true}
+9.466s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 2048, "useOSL": false, "useTiling": true}
+9.575s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": false, "useTiling": true}
+9.580s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": false, "useTiling": true}
+9.588s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 1024, "useOSL": true, "useTiling": true}
+9.592s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 1024, "useOSL": true, "useTiling": true}
+10.026s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": true, "useTiling": true}
+10.031s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 128, "useOSL": false, "useTiling": true}
+10.034s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": true, "useTiling": true}
+10.082s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 128, "useOSL": false, "useTiling": true}
+11.314s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": false, "useTiling": true}
+11.314s _ {"devType": "NONE", "featureSet": "EXPERIMENTAL", "tileSize": 64, "useOSL": true, "useTiling": true}
+11.315s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": false, "useTiling": true}
+11.327s _ {"devType": "NONE", "featureSet": "SUPPORTED", "tileSize": 64, "useOSL": true, "useTiling": true}
 ```
