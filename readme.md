@@ -9,6 +9,9 @@ Ranks the settings by render time (avergage of 3 runs).
 
 
 ## Requirements
+- python packages
+	- tqdm
+	- scikit-learn
 - imagemagick
 
 
