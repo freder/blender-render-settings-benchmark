@@ -2,7 +2,7 @@ determine which settings result in the fastest render time
 
 ```shell
 blender -b -y -noaudio \
-	-P ./script.py \
+	-P ./benchmark.py \
 	/path/to/file.blend \
 		| ag --invert-match '^Fra:'
 # will write results to ./results.txt
