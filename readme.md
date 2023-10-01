@@ -1,9 +1,9 @@
 determine which settings result in the fastest render time
 
 ```shell
-blender -b -y -noaudio \
+blender -b /path/to/file.blend \
+	-y -noaudio \
 	-P ./benchmark.py \
-	/path/to/file.blend \
 		| ag --invert-match '^Fra:'
 # will write results to ./results.txt
 ```
