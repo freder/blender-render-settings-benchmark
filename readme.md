@@ -5,6 +5,7 @@ blender -b -y -noaudio \
 	-P ./script.py \
 	/path/to/file.blend \
 		| ag --invert-match '^Fra:'
+# will write results to ./results.txt
 ```
 
 

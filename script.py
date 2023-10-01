@@ -38,25 +38,32 @@ featureSets = [
 ]
 
 
-def initMetadataBurning():
-	S.render.use_stamp_camera = False
-	S.render.use_stamp_date = False
-	S.render.use_stamp_filename = False
-	S.render.use_stamp_frame = False
-	S.render.use_stamp_frame_range = False
-	S.render.use_stamp_hostname = False
-	S.render.use_stamp_lens = False
-	S.render.use_stamp_marker = False
-	S.render.use_stamp_memory = False
-	S.render.use_stamp_scene = False
-	S.render.use_stamp_sequencer_strip = False
-	S.render.use_stamp_time = False
+def getUseOslOptions(devType):
+	# OSL only works with CPU and OPTIX
+	# although this might change in the future: https://devtalk.blender.org/t/osl-on-gpu/25751
+	# NOTE: not sure what effect enabling OSL has when OSL isn't actually used
+	return [True, False] if devType in ['NONE', 'OPTIX'] else [False]
 
-	S.render.use_stamp_render_time = True
-	S.render.use_stamp_note = True
 
-	S.render.use_stamp = True
-	S.render.stamp_font_size = 18
+# def initMetadataBurning():
+# 	S.render.use_stamp_camera = False
+# 	S.render.use_stamp_date = False
+# 	S.render.use_stamp_filename = False
+# 	S.render.use_stamp_frame = False
+# 	S.render.use_stamp_frame_range = False
+# 	S.render.use_stamp_hostname = False
+# 	S.render.use_stamp_lens = False
+# 	S.render.use_stamp_marker = False
+# 	S.render.use_stamp_memory = False
+# 	S.render.use_stamp_scene = False
+# 	S.render.use_stamp_sequencer_strip = False
+# 	S.render.use_stamp_time = False
+
+# 	S.render.use_stamp_render_time = True
+# 	S.render.use_stamp_note = True
+
+# 	S.render.use_stamp = True
+# 	S.render.stamp_font_size = 18
 
 
 def render(params):
@@ -100,12 +107,6 @@ def main(f):
 			print(msg)
 			f.write(f'{msg}\n')
 
-	def getUseOslOptions(devType):
-		# OSL only works with CPU and OPTIX
-		# although this might change in the future: https://devtalk.blender.org/t/osl-on-gpu/25751
-		# NOTE: not sure what effect enabling OSL has when OSL isn't actually used
-		return [True, False] if devType in ['NONE', 'OPTIX'] else [False]
-
 	configs = [
 		{
 			'devType': [devType],
@@ -138,7 +139,7 @@ def main(f):
 	print()
 	print('###############################')
 	print('results:')
-	for params in sorted(results, key=lambda x: x['renderTime']):
+	for params in sorted(results, key=lambda p: p['renderTime']):
 		duration = params['renderTime']
 		del params['renderTime']
 		d = f'{duration:.3f}s'
