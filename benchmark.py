@@ -1,6 +1,8 @@
 import bpy
-import time
 import json
+import subprocess
+import pathlib
+import os.path
 
 # /Applications/Blender.app/Contents/Resources/3.6/python/bin/python3.10 -m pip install scikit-learn tqdm
 from sklearn.model_selection import ParameterGrid
@@ -10,8 +12,11 @@ from tqdm import tqdm
 C = bpy.context
 S = C.scene
 
+scriptDir = pathlib.Path(__file__).parent.resolve()
+renderFileName = 'blender-render-settings-benchmark.png'
+renderFilePath = os.path.join(scriptDir, renderFileName)
+resultsfilePath = os.path.join(scriptDir, 'results.txt')
 rounds = 3
-outfileName = 'results.txt'
 cyclesPrefs = C.preferences.addons['cycles'].preferences
 
 computeDeviceTypes = [
@@ -45,25 +50,31 @@ def getUseOslOptions(devType):
 	return [True, False] if devType in ['NONE', 'OPTIX'] else [False]
 
 
-# def initMetadataBurning():
-# 	S.render.use_stamp_camera = False
-# 	S.render.use_stamp_date = False
-# 	S.render.use_stamp_filename = False
-# 	S.render.use_stamp_frame = False
-# 	S.render.use_stamp_frame_range = False
-# 	S.render.use_stamp_hostname = False
-# 	S.render.use_stamp_lens = False
-# 	S.render.use_stamp_marker = False
-# 	S.render.use_stamp_memory = False
-# 	S.render.use_stamp_scene = False
-# 	S.render.use_stamp_sequencer_strip = False
-# 	S.render.use_stamp_time = False
+def initMetadataBurning():
+	S.render.use_stamp_camera = False
+	S.render.use_stamp_date = False
+	S.render.use_stamp_filename = False
+	S.render.use_stamp_frame = False
+	S.render.use_stamp_frame_range = False
+	S.render.use_stamp_hostname = False
+	S.render.use_stamp_lens = False
+	S.render.use_stamp_marker = False
+	S.render.use_stamp_memory = False
+	S.render.use_stamp_scene = False
+	S.render.use_stamp_sequencer_strip = False
+	S.render.use_stamp_time = False
 
-# 	S.render.use_stamp_render_time = True
-# 	S.render.use_stamp_note = True
+	S.render.use_stamp_render_time = True
+	S.render.use_stamp_note = True
 
-# 	S.render.use_stamp = True
-# 	S.render.stamp_font_size = 18
+	S.render.use_stamp = True
+	S.render.stamp_font_size = 18
+
+
+def timecodeToSeconds(timecode):
+	# timecode is in format mm:ss.ms
+	mins, secs = timecode.split(':')
+	return int(mins) * 60 + float(secs)
 
 
 def render(params):
@@ -85,17 +96,31 @@ def render(params):
 	for dev in cyclesPrefs.devices:
 		dev['use'] = True
 
-	startTime = time.time()
-	bpy.ops.render.render(use_viewport=True)
-	duration = time.time() - startTime
+	bpy.ops.render.render(write_still=True)
+	duration = -1
+
+	# NOTE: blender offers no way to get the render time with python
+	# however, we can read it from the render image file metadata, using imagemagick
+	command = f'identify -verbose \'{renderFilePath}\''
+	output = subprocess.check_output(command, shell=True, text=True)
+
+	for line in output.splitlines():
+		if 'render_time' in line:
+			timecode = line.split('render_time: ')[1]
+			duration = timecodeToSeconds(timecode)
+
 	return duration
 
 
 def main(f):
-	# initMetadataBurning()
+	initMetadataBurning()
 	S.render.engine = 'CYCLES'
 	S.cycles.use_denoising = False
 	S.render.use_persistent_data = False
+
+	S.render.filepath = renderFilePath
+	S.render.image_settings.file_format = 'PNG'
+	S.render.use_overwrite = True
 
 	devTypesSupported = []
 	for devType in computeDeviceTypes:
@@ -147,5 +172,5 @@ def main(f):
 		f.write(f'{d} _ {json.dumps(params)}\n')
 
 
-with open(outfileName, 'w') as f:
+with open(resultsfilePath, 'w') as f:
 	main(f)
