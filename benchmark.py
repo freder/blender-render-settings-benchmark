@@ -1,8 +1,10 @@
-import bpy
 import json
 import subprocess
 import pathlib
 import os.path
+
+import bpy
+from bpy.app.handlers import persistent
 
 # /Applications/Blender.app/Contents/Resources/3.6/python/bin/python3.10 -m pip install scikit-learn tqdm
 from sklearn.model_selection import ParameterGrid
@@ -174,5 +176,10 @@ def main(f):
 		f.write(f'{d} _ {json.dumps(params)}\n')
 
 
-with open(resultsfilePath, 'w') as f:
-	main(f)
+# make sure file has been loaded
+@persistent
+def load_handler(*args):
+	with open(resultsfilePath, 'w') as f:
+		main(f)
+
+bpy.app.handlers.load_post.append(load_handler)
