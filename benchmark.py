@@ -114,9 +114,11 @@ def render(params):
 
 def main(f):
 	initMetadataBurning()
+
 	S.render.engine = 'CYCLES'
 	S.cycles.use_denoising = False
-	S.render.use_persistent_data = False
+	S.render.use_compositing = False
+	S.render.use_sequencer = False
 
 	S.render.filepath = renderFilePath
 	S.render.image_settings.file_format = 'PNG'
