@@ -17,7 +17,7 @@ Ranks the settings by render time (avergage of 3 runs).
 
 ```shell
 blender -b /path/to/file.blend \
-	-y -noaudio \
+	--factory-startup -noaudio -y \
 	-P ./benchmark.py \
 		| ag --invert-match '^Fra:'
 # will write results to ./results.txt
