@@ -25,6 +25,7 @@ computeDeviceTypes = [
 	# 'ONEAPI',
 	# 'NONE', # ignore CPU
 ]
+devicesToUse = ['all', 'gpu-only']
 tileSizes = [
 	64,
 	128,
@@ -87,7 +88,7 @@ def render(params):
 	S.cycles.feature_set = params['featureSet']
 	S.cycles.use_auto_tile = params['useTiling']
 	S.cycles.tile_size = params['tileSize']
-	S.cycles.shading_system = params['useOSL']
+	# S.cycles.shading_system = params['useOSL']
 
 	if devType == 'NONE':
 		S.cycles.device = 'CPU'
@@ -96,14 +97,17 @@ def render(params):
 
 	cyclesPrefs.get_devices()
 
-	# only use gpu
 	cpuDevices = list(map(
 		lambda dev: dev.id,
 		cyclesPrefs.get_devices_for_type('CPU')
 	))
 	enabledDevices = {}
 	for dev in cyclesPrefs.devices:
-		dev['use'] = dev.id not in cpuDevices
+		if params['devicesToUse'] == 'all':
+			dev['use'] = True
+		else:
+			# only use gpu
+			dev['use'] = dev.id not in cpuDevices
 		enabledDevices[dev['name']] = dev['use']
 
 	S.render.stamp_note_text = json.dumps({
@@ -153,24 +157,26 @@ def main(f):
 			print(msg)
 			f.write(f'{msg}\n')
 
-	configs = [
-		{
+	configs = []
+	for devType in devTypesSupported:
+		# tiling enabled
+		configs.append({
 			'devType': [devType],
+			'devicesToUse': devicesToUse,
 			'featureSet': featureSets,
 			'useTiling': [True],
 			'tileSize': tileSizes,
-			'useOSL': getUseOslOptions(devType),
-		}
-		for devType in devTypesSupported
-	]
-	# with tiling disabled
-	for devType in devTypesSupported:
+			# 'useOSL': getUseOslOptions(devType),
+		})
+
+		# tiling disabled
 		configs.append({
 			'devType': [devType],
+			'devicesToUse': devicesToUse,
 			'featureSet': featureSets,
 			'useTiling': [False],
 			'tileSize': [1024], # not used, so whatever
-			'useOSL': getUseOslOptions(devType),
+			# 'useOSL': getUseOslOptions(devType),
 		})
 	paramGrid = ParameterGrid(configs)
 
