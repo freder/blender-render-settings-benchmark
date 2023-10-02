@@ -1,5 +1,5 @@
 Script to determine which settings result in the fastest render time (for a given .blend file):
-- Device type: `CUDA` / `OPTIX` / `METAL` / `CPU`
+- Device type: `CUDA` / `OPTIX` / `METAL` (note: enables GPU devices only)
 - Feature set: `EXPERIMENTAL` / `SUPPORTED`
 - Tiling: `on` / `off`
 	- Tile size: `64` / `128` / `256` / `512` / `1024` / `2048` / `4096`

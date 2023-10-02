@@ -4,22 +4,17 @@ import pathlib
 import os.path
 
 import bpy
-from bpy.app.handlers import persistent
 
 # /Applications/Blender.app/Contents/Resources/3.6/python/bin/python3.10 -m pip install scikit-learn tqdm
 from sklearn.model_selection import ParameterGrid
 from tqdm import tqdm
 
 
-C = bpy.context
-S = C.scene
-
 scriptDir = pathlib.Path(__file__).parent.resolve()
 renderFileName = 'blender-render-settings-benchmark.png'
 renderFilePath = os.path.join(scriptDir, renderFileName)
 resultsfilePath = os.path.join(scriptDir, 'results.txt')
 rounds = 3
-cyclesPrefs = C.preferences.addons['cycles'].preferences
 
 computeDeviceTypes = [
 	'METAL',
@@ -28,7 +23,7 @@ computeDeviceTypes = [
 	# 'OPENCL', # was removed
 	# 'HIP',
 	# 'ONEAPI',
-	'NONE',
+	# 'NONE', # ignore CPU
 ]
 tileSizes = [
 	64,
@@ -53,6 +48,9 @@ def getUseOslOptions(devType):
 
 
 def initMetadataBurning():
+	C = bpy.context
+	S = C.scene
+
 	S.render.use_stamp_camera = False
 	S.render.use_stamp_date = False
 	S.render.use_stamp_filename = False
@@ -80,9 +78,12 @@ def timecodeToSeconds(timecode):
 
 
 def render(params):
+	C = bpy.context
+	S = C.scene
+	cyclesPrefs = C.preferences.addons['cycles'].preferences
+
 	devType = params['devType']
 	cyclesPrefs.compute_device_type = devType
-	S.render.stamp_note_text = json.dumps(params, indent=4)
 	S.cycles.feature_set = params['featureSet']
 	S.cycles.use_auto_tile = params['useTiling']
 	S.cycles.tile_size = params['tileSize']
@@ -94,9 +95,21 @@ def render(params):
 		S.cycles.device = 'GPU'
 
 	cyclesPrefs.get_devices()
-	# use all devices (gpu and cpu)
+
+	# only use gpu
+	cpuDevices = list(map(
+		lambda dev: dev.id,
+		cyclesPrefs.get_devices_for_type('CPU')
+	))
+	enabledDevices = {}
 	for dev in cyclesPrefs.devices:
-		dev['use'] = True
+		dev['use'] = dev.id not in cpuDevices
+		enabledDevices[dev['name']] = dev['use']
+
+	S.render.stamp_note_text = json.dumps({
+		**params,
+		'enabledDevices': enabledDevices,
+	}, indent=4)
 
 	bpy.ops.render.render(write_still=True)
 	duration = -1
@@ -111,10 +124,14 @@ def render(params):
 			timecode = line.split('render_time: ')[1]
 			duration = timecodeToSeconds(timecode)
 
-	return duration
+	return (duration, enabledDevices)
 
 
 def main(f):
+	C = bpy.context
+	S = C.scene
+	cyclesPrefs = C.preferences.addons['cycles'].preferences
+
 	initMetadataBurning()
 
 	S.render.engine = 'CYCLES'
@@ -159,11 +176,18 @@ def main(f):
 
 	results = []
 	for params in tqdm(paramGrid):
+		s = 0
+		enabledDevices = {}
+		for _ in range(rounds):
+			dur, enabledDevices = render(params)
+			s += dur
 		# average over multiple rounds
-		duration = sum(
-			render(params) for _ in range(rounds)
-		) / rounds
-		results.append({ **params, 'renderTime': duration })
+		duration = s / rounds
+		results.append({
+			**params,
+			'renderTime': duration,
+			'enabledDevices': enabledDevices,
+		})
 
 	print()
 	print('###############################')
@@ -176,10 +200,10 @@ def main(f):
 		f.write(f'{d} _ {json.dumps(params)}\n')
 
 
-# make sure file has been loaded
-@persistent
-def load_handler(*args):
-	with open(resultsfilePath, 'w') as f:
-		main(f)
+# # make sure file has been loaded
+# def load_handler(*args):
+# 	print('here')
+with open(resultsfilePath, 'w') as f:
+	main(f)
 
-bpy.app.handlers.load_post.append(load_handler)
+# bpy.app.handlers.load_post.append(load_handler)
