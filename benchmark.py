@@ -56,7 +56,6 @@ def initMetadataBurning():
 	S.render.use_stamp_filename = False
 	S.render.use_stamp_frame = False
 	S.render.use_stamp_frame_range = False
-	S.render.use_stamp_hostname = False
 	S.render.use_stamp_lens = False
 	S.render.use_stamp_marker = False
 	S.render.use_stamp_memory = False
@@ -64,6 +63,7 @@ def initMetadataBurning():
 	S.render.use_stamp_sequencer_strip = False
 	S.render.use_stamp_time = False
 
+	S.render.use_stamp_hostname = True
 	S.render.use_stamp_render_time = True
 	S.render.use_stamp_note = True
 
