@@ -139,6 +139,7 @@ def main(f):
 	initMetadataBurning()
 
 	S.render.engine = 'CYCLES'
+	S.render.resolution_percentage = 100
 	S.cycles.use_denoising = False
 	S.render.use_compositing = False
 	S.render.use_sequencer = False
