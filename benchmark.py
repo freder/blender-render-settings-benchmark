@@ -1,3 +1,4 @@
+import sys
 import json
 import subprocess
 import pathlib
@@ -9,49 +10,39 @@ import bpy
 from sklearn.model_selection import ParameterGrid
 from tqdm import tqdm
 
+scriptDir = str(
+	pathlib.Path(__file__).parent.resolve()
+)
 
-scriptDir = pathlib.Path(__file__).parent.resolve()
+sys.path.append(scriptDir)
+from settings import (
+	additionalInit,
+	rounds,
+	computeDeviceTypes,
+	devicesToUse,
+	useTiling,
+	tileSizes,
+	featureSets
+)
+
+
 renderFileName = 'blender-render-settings-benchmark.png'
 renderFilePath = os.path.join(scriptDir, renderFileName)
 resultsfilePath = os.path.join(scriptDir, 'results.txt')
-rounds = 3
 
-computeDeviceTypes = [
-	'METAL',
-	'OPTIX',
-	'CUDA',
-	# 'OPENCL', # was removed
-	# 'HIP',
-	# 'ONEAPI',
-	# 'NONE', # ignore CPU
-]
-devicesToUse = ['all', 'gpu-only']
-tileSizes = [
-	64,
-	128,
-	256,
-	512,
-	1024,
-	2048,
-	4096
-]
-featureSets = [
-	'SUPPORTED',
-	'EXPERIMENTAL'
-]
+C = bpy.context
+S = C.scene
+cyclesPrefs = C.preferences.addons['cycles'].preferences
 
 
-def getUseOslOptions(devType):
-	# OSL only works with CPU and OPTIX
-	# although this might change in the future: https://devtalk.blender.org/t/osl-on-gpu/25751
-	# NOTE: not sure what effect enabling OSL has when OSL isn't actually used
-	return [True, False] if devType in ['NONE', 'OPTIX'] else [False]
+# def getUseOslOptions(devType):
+# 	# OSL only works with CPU and OPTIX
+# 	# although this might change in the future: https://devtalk.blender.org/t/osl-on-gpu/25751
+# 	# NOTE: not sure what effect enabling OSL has when OSL isn't actually used
+# 	return [True, False] if devType in ['NONE', 'OPTIX'] else [False]
 
 
 def initMetadataBurning():
-	C = bpy.context
-	S = C.scene
-
 	S.render.use_stamp_camera = False
 	S.render.use_stamp_date = False
 	S.render.use_stamp_filename = False
@@ -79,10 +70,6 @@ def timecodeToSeconds(timecode):
 
 
 def render(params):
-	C = bpy.context
-	S = C.scene
-	cyclesPrefs = C.preferences.addons['cycles'].preferences
-
 	devType = params['devType']
 	cyclesPrefs.compute_device_type = devType
 	S.cycles.feature_set = params['featureSet']
@@ -118,7 +105,7 @@ def render(params):
 	bpy.ops.render.render(write_still=True)
 	duration = -1
 
-	# NOTE: blender offers no way to get the render time with python
+	# NOTE: blender offers no way to get the render time with python.
 	# however, we can read it from the render image file metadata, using imagemagick
 	command = f'identify -verbose \'{renderFilePath}\''
 	output = subprocess.check_output(command, shell=True, text=True)
@@ -132,17 +119,8 @@ def render(params):
 
 
 def main(f):
-	C = bpy.context
-	S = C.scene
-	cyclesPrefs = C.preferences.addons['cycles'].preferences
-
 	initMetadataBurning()
-
-	S.render.engine = 'CYCLES'
-	S.render.resolution_percentage = 100
-	S.cycles.use_denoising = False
-	S.render.use_compositing = False
-	S.render.use_sequencer = False
+	additionalInit(S)
 
 	S.render.filepath = renderFilePath
 	S.render.image_settings.file_format = 'PNG'
@@ -161,34 +139,37 @@ def main(f):
 	configs = []
 	for devType in devTypesSupported:
 		# tiling enabled
-		configs.append({
-			'devType': [devType],
-			'devicesToUse': devicesToUse,
-			'featureSet': featureSets,
-			'useTiling': [True],
-			'tileSize': tileSizes,
-			# 'useOSL': getUseOslOptions(devType),
-		})
+		if True in useTiling:
+			configs.append({
+				'devType': [devType],
+				'devicesToUse': devicesToUse,
+				'featureSet': featureSets,
+				'useTiling': [True],
+				'tileSize': tileSizes,
+				# 'useOSL': getUseOslOptions(devType),
+			})
 
 		# tiling disabled
-		configs.append({
-			'devType': [devType],
-			'devicesToUse': devicesToUse,
-			'featureSet': featureSets,
-			'useTiling': [False],
-			'tileSize': [1024], # not used, so whatever
-			# 'useOSL': getUseOslOptions(devType),
-		})
+		if False in useTiling:
+			configs.append({
+				'devType': [devType],
+				'devicesToUse': devicesToUse,
+				'featureSet': featureSets,
+				'useTiling': [False],
+				'tileSize': [1024], # not used, so whatever
+				# 'useOSL': getUseOslOptions(devType),
+			})
+
 	paramGrid = ParameterGrid(configs)
 
 	results = []
 	for params in tqdm(paramGrid):
 		s = 0
 		enabledDevices = {}
+		# take the average over multiple rounds
 		for _ in range(rounds):
 			dur, enabledDevices = render(params)
 			s += dur
-		# average over multiple rounds
 		duration = s / rounds
 		results.append({
 			**params,
@@ -207,10 +188,5 @@ def main(f):
 		f.write(f'{d} _ {json.dumps(params)}\n')
 
 
-# # make sure file has been loaded
-# def load_handler(*args):
-# 	print('here')
 with open(resultsfilePath, 'w') as f:
 	main(f)
-
-# bpy.app.handlers.load_post.append(load_handler)

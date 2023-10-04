@@ -1,23 +1,31 @@
-Script to determine which settings result in the fastest render time (for a given .blend file):
-- Device type: `CUDA` / `OPTIX` / `METAL` (note: enables GPU devices only)
-- Feature set: `EXPERIMENTAL` / `SUPPORTED`
-- Tiling: `on` / `off`
-	- Tile size: `64` / `128` / `256` / `512` / `1024` / `2048` / `4096`
-
-Ranks the settings by render time (avergage of 3 runs).
+Script to determine which settings result in the fastest render time (for a given .blend file)
 
 
 ## Requirements
-- python packages
+- python packages (installed for Blender's python):
 	- tqdm
 	- scikit-learn
 - imagemagick
 
 
+## Configure
+Edit [settings.py](./settings.py) to your liking.
+
+- Device type: `CUDA` / `OPTIX` / `METAL`
+- Devices to use: `all` / `gpu-only`
+- Feature set: `EXPERIMENTAL` / `SUPPORTED`
+- Tiling: `on` / `off`
+- Tile size: `64` / `128` / `256` / `512` / `1024` / `2048` / `4096` (only used if tiling is enabled)
+- Rounds: `3` (number of runs to take the average render time of)
+
+
+## Run
 ```shell
+# add more args as needed: https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html
 time \
 	blender --factory-startup -noaudio -y \
 		-b /path/to/file.blend \
+		--scene 'Scene' \
 		-P ./benchmark.py \
 	| ag --invert-match '^Fra:'
 # will write results to ./results.txt
