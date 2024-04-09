@@ -2,7 +2,7 @@ Script to determine which settings result in the fastest render time (for a give
 
 
 ## Requirements
-- python packages (installed for Blender's python):
+- python packages ([installed for Blender's python](benchmark.py#L9)):
 	- tqdm
 	- scikit-learn
 - imagemagick
