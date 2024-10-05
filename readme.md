@@ -27,7 +27,9 @@ time \
 		-b /path/to/file.blend \
 		--scene 'Scene' \
 		-P ./benchmark.py \
-	| ag --invert-match '^Fra:'
+	| ag --invert-match '^Fra:' \
+	| ag --invert-match '^Saved:' \
+	| ag --invert-match '^Cycles shader graph connect:'
 # will write results to ./results.txt
 ```
 
