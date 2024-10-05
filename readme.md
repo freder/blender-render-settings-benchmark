@@ -16,7 +16,7 @@ Edit [settings.py](./settings.py) to your liking.
 - Feature set: `EXPERIMENTAL` / `SUPPORTED`
 - Tiling: `on` / `off`
 - Tile size: `64` / `128` / `256` / `512` / `1024` / `2048` / `4096` (only used if tiling is enabled)
-- Rounds: `3` (number of runs to take the average render time of)
+- Rounds: `n` (number of runs to take the average render time of)
 
 
 ## Run

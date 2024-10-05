@@ -1,4 +1,4 @@
-rounds = 3
+rounds = 1
 
 computeDeviceTypes = [
 	# 'NONE', # CPU
