@@ -1,13 +1,35 @@
 import sys
 import json
+import site
 import subprocess
 import pathlib
 import os.path
 
 import bpy
 
-# /Applications/Blender.app/Contents/Resources/3.6/python/bin/python3.10 -m pip install scikit-learn tqdm
+
+# install packages:
+# /Applications/Blender.app/Contents/Resources/4.2/python/bin/python3.11 -m pip install scikit-learn tqdm
+
+# NOTE: newer blender versions don't install packages into the bundled
+# site-packages dir anymore, hence we need to add the alternative location
+userSitePackages = site.getusersitepackages()
+if userSitePackages not in sys.path:
+    sys.path.append(userSitePackages)
+
+
+def ensureImport(pkgImportName: str, pkgInstallName: str):
+	'''install packages if not found'''
+	try:
+		__import__(pkgImportName)
+	except Exception:
+		subprocess.run(
+			[sys.executable, '-m', 'pip', 'install', pkgInstallName]
+		)
+
+ensureImport('sklearn', 'scikit-learn')
 from sklearn.model_selection import ParameterGrid
+ensureImport('tqdm', 'tqdm')
 from tqdm import tqdm
 
 scriptDir = str(
