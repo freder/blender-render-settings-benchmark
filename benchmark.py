@@ -27,8 +27,8 @@ from settings import (
 
 
 renderFileName = 'blender-render-settings-benchmark.png'
-renderFilePath = os.path.join(scriptDir, renderFileName)
-resultsfilePath = os.path.join(scriptDir, 'results.txt')
+renderFilePath = os.path.join('.', renderFileName)
+resultsfilePath = os.path.join('.', 'results.txt')
 
 C = bpy.context
 S = C.scene
